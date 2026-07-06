@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Smart Feast｜後端管理</title>
+    <title>Smart Feast｜AI 搭配決策後台</title>
     <link rel="stylesheet" href="./styles.css" />
     <script>
       if (sessionStorage.getItem("smartFeastAdminSession") !== "active") {
@@ -11,65 +11,191 @@
       }
     </script>
   </head>
-  <body class="standalone-page" data-default-screen="dashboard">
-    <header class="site-header">
-      <a class="brand" href="./index.html"><span class="brand-mark">SF</span><span>Smart Feast 管理端</span></a>
+  <body class="standalone-page admin-console" data-default-screen="dashboard">
+    <header class="site-header admin-header">
+      <a class="brand" href="./index.html">
+        <span class="brand-mark">SF</span>
+        <span>Smart Feast 管理端</span>
+      </a>
       <nav aria-label="後端功能導覽">
+        <a href="#overview">總覽</a>
+        <a href="#database-zone">搭配資料庫</a>
+        <a href="#innovation-zone">新品研發</a>
         <a href="./frontend.html">前端網頁</a>
-        <a href="#dashboard" data-screen-link="dashboard">儀表板</a>
-        <a href="#databases" data-screen-link="databases">資料庫</a>
-        <a href="#innovation" data-screen-link="innovation">新品研發</a>
         <button class="nav-logout" type="button" id="admin-logout">登出</button>
       </nav>
     </header>
-    <main>
-      <section id="dashboard" class="workspace-section dashboard-section screen-section" data-screen="dashboard" aria-labelledby="dashboard-title">
-        <a class="back-home" href="./index.html">返回首頁</a><a class="back-home" href="./frontend.html">切換前端</a>
-        <div class="section-heading"><p class="section-kicker">後端管理｜營運洞察</p><h2 id="dashboard-title">將前端互動轉為情境趨勢、風味偏好與搭配洞察。</h2><p class="section-desc">前端點選與回饋會形成業者可讀的情境需求、熱門搭配與產品缺口。</p></div>
-        <div class="dashboard-layout">
-          <div class="metric-strip" aria-label="後台指標">
-            <div><span>今日互動</span><strong id="metric-interactions">128</strong></div>
-            <div><span>購買意願</span><strong id="metric-intent">63%</strong></div>
-            <div><span>最高情境</span><strong id="metric-context">療癒</strong></div>
-            <div><span>產品缺口</span><strong id="metric-gap">低甜茶香</strong></div>
-          </div>
-          <div class="chart-panel"><div class="panel-heading"><h3>情境需求分布</h3><select id="dashboard-filter" aria-label="切換資料"><option value="today">今日</option><option value="week">本週</option><option value="mvp">MVP 測試</option></select></div><div id="context-bars" class="bar-chart"></div></div>
-          <div class="chart-panel"><div class="panel-heading"><h3>熱門搭配排行</h3><span class="muted-label">依點選與購買意願排序</span></div><ol id="pairing-ranking" class="ranking-list"></ol></div>
-          <div class="chart-panel activity-panel"><div class="panel-heading"><h3>最新前台回饋</h3><span class="muted-label">跨頁即時累積</span></div><div id="activity-list" class="activity-list"></div></div>
+
+    <main id="overview" class="admin-workbench">
+      <div class="admin-titlebar">
+        <div>
+          <p class="section-kicker">SMART FEAST AI DECISION CENTER</p>
+          <h1>情境餐飲搭配決策後台</h1>
         </div>
+        <div class="admin-live"><span></span> 資料同步中</div>
+      </div>
+
+      <section class="admin-grid" aria-label="AI 搭配決策工作台">
+        <aside class="admin-column insight-rail">
+          <article class="console-panel assistant-card">
+            <div class="console-heading">
+              <span class="console-icon pink">♥</span>
+              <div><small>消費者需求</small><h2>Smart Feast AI 小幫手</h2></div>
+            </div>
+            <p>前台最新輸入與需求會在此轉換成結構化情境資料。</p>
+            <div class="mock-message">今天想放鬆一下，但不要太甜，最好有茶香。</div>
+            <div class="context-shortcuts">
+              <span>♥<strong>療癒</strong></span>
+              <span>ϟ<strong>提神</strong></span>
+              <span>●<strong>約會</strong></span>
+              <span>❧<strong>清爽</strong></span>
+            </div>
+          </article>
+
+          <article class="console-panel analysis-result">
+            <div class="console-heading">
+              <span class="console-icon green">AI</span>
+              <div><small>語意分析結果</small><h2>情境與風味標籤</h2></div>
+            </div>
+            <div class="analysis-chip-row">
+              <span>療癒</span><span>低負擔</span><span>茶香</span><span>不太甜</span>
+            </div>
+            <dl class="analysis-values">
+              <div><dt>主要情境</dt><dd id="metric-context">療癒</dd></div>
+              <div><dt>產品缺口</dt><dd id="metric-gap">低甜茶香</dd></div>
+              <div><dt>今日互動</dt><dd id="metric-interactions">128</dd></div>
+              <div><dt>購買意願</dt><dd id="metric-intent">63%</dd></div>
+            </dl>
+          </article>
+
+          <article class="console-panel flavor-parameter-card">
+            <div class="console-heading compact">
+              <span class="console-icon orange">◇</span>
+              <div><small>需求轉換</small><h2>風味參數向量</h2></div>
+            </div>
+            <div class="mini-radar" aria-label="甜度、濃郁度、清爽度、茶香與酸度雷達圖">
+              <div class="radar-grid"></div>
+              <div class="radar-shape"></div>
+              <span class="radar-label top">甜度 2.5</span>
+              <span class="radar-label right">濃郁 3.0</span>
+              <span class="radar-label bottom-right">茶香 4.5</span>
+              <span class="radar-label bottom-left">酸度 2.0</span>
+              <span class="radar-label left">清爽 3.5</span>
+            </div>
+          </article>
+        </aside>
+
+        <section class="admin-column database-workspace" id="database-zone">
+          <article class="console-panel database-console">
+            <div class="workspace-title">
+              <div>
+                <p class="section-kicker">PAIRING DATABASE</p>
+                <h2>飲品 × 甜點餐食搭配資料庫</h2>
+              </div>
+              <input id="database-search" type="search" placeholder="搜尋風味、情境或品項…" />
+            </div>
+
+            <div class="tab-list admin-tabs" role="tablist" aria-label="資料庫切換">
+              <button type="button" role="tab" aria-selected="true" data-tab="flavor">A. 飲食風味輪</button>
+              <button type="button" role="tab" aria-selected="false" data-tab="lexicon">B. 情境語意詞庫</button>
+              <button type="button" role="tab" aria-selected="false" data-tab="pairings">C. 飲品 × 餐食</button>
+            </div>
+            <p class="database-count" id="database-count" aria-live="polite"></p>
+            <div id="database-output" class="database-grid admin-database-grid"></div>
+          </article>
+
+          <div class="logic-grid">
+            <article class="logic-card green-card">
+              <span>01</span><div><h3>風味互補</h3><p>苦 ↔ 甜、清爽 ↔ 濃郁</p><small>例：美式咖啡＋起司蛋糕</small></div>
+            </article>
+            <article class="logic-card orange-card">
+              <span>02</span><div><h3>風味共鳴</h3><p>奶香＋奶香、可可＋堅果</p><small>例：拿鐵＋提拉米蘇</small></div>
+            </article>
+            <article class="logic-card blue-card">
+              <span>03</span><div><h3>口感平衡</h3><p>液體＋固體、清爽＋酥脆</p><small>例：綠茶＋馬卡龍</small></div>
+            </article>
+            <article class="logic-card purple-card">
+              <span>04</span><div><h3>情境適配</h3><p>依需求標籤計算最佳組合</p><small>療癒、提神、約會、低負擔</small></div>
+            </article>
+          </div>
+
+          <article class="console-panel trend-panel">
+            <div class="panel-heading">
+              <div><small>消費需求洞察</small><h2>熱門情境分布</h2></div>
+              <select id="dashboard-filter" aria-label="切換儀表板資料">
+                <option value="today">今日</option>
+                <option value="week">本週</option>
+                <option value="mvp">MVP 測試</option>
+              </select>
+            </div>
+            <div id="context-bars" class="bar-chart"></div>
+          </article>
+        </section>
+
+        <aside class="admin-column recommendation-rail">
+          <article class="console-panel recommendation-console">
+            <div class="console-heading">
+              <span class="console-icon pink">★</span>
+              <div><small>即時推薦</small><h2>搭配推薦結果</h2></div>
+            </div>
+            <div class="recommend-filter">
+              <span>排序：匹配度</span><span>顯示：TOP 3</span>
+            </div>
+            <ol id="pairing-ranking" class="pairing-cards"></ol>
+          </article>
+
+          <article class="console-panel innovation-console" id="innovation-zone">
+            <div class="console-heading compact">
+              <span class="console-icon purple">✦</span>
+              <div><small>市場缺口轉譯</small><h2>新品研發建議</h2></div>
+            </div>
+            <div class="innovation-controls">
+              <label for="innovation-context">研發情境</label>
+              <select id="innovation-context">
+                <option value="療癒">療癒</option><option value="提神">提神</option>
+                <option value="約會">約會</option><option value="低負擔">低負擔</option><option value="犒賞">犒賞</option>
+              </select>
+              <label for="innovation-gap">產品缺口</label>
+              <select id="innovation-gap">
+                <option value="低甜茶香">低甜茶香</option><option value="清爽乳香">清爽乳香</option>
+                <option value="酸甜提神">酸甜提神</option><option value="高儀式感甜點">高儀式感甜點</option>
+              </select>
+              <button class="run-button" type="button" id="generate-idea">產生研發方向</button>
+            </div>
+            <div class="idea-result">
+              <p class="muted-label">AI 建議品項</p>
+              <h3 id="idea-title">新品概念</h3>
+              <p id="idea-summary">依據高頻需求與產品缺口產生建議。</p>
+              <ul id="idea-points"></ul>
+            </div>
+          </article>
+
+          <article class="console-panel activity-panel">
+            <div class="panel-heading"><h2>最新前台回饋</h2><span class="muted-label">即時累積</span></div>
+            <div id="activity-list" class="activity-list"></div>
+          </article>
+        </aside>
       </section>
 
-      <section id="databases" class="workspace-section screen-section" data-screen="databases" aria-labelledby="database-title">
-        <a class="back-home" href="#dashboard" data-screen-link="dashboard">返回儀表板</a><a class="back-home" href="./frontend.html">切換前端</a>
-        <div class="section-heading"><p class="section-kicker">後端管理｜核心資料</p><h2 id="database-title">風味輪、情境詞庫與搭配資料庫。</h2><p class="section-desc">使用搜尋與分類頁籤快速檢視推薦系統使用的資料。</p></div>
-        <div class="database-toolbar">
-          <input id="database-search" type="search" placeholder="搜尋：療癒、茶香、低負擔、桂花..." />
-          <div class="tab-list" role="tablist" aria-label="資料庫切換">
-            <button type="button" role="tab" aria-selected="true" data-tab="flavor">飲食風味輪</button>
-            <button type="button" role="tab" aria-selected="false" data-tab="lexicon">情境語意詞庫</button>
-            <button type="button" role="tab" aria-selected="false" data-tab="pairings">飲品 × 餐食</button>
-          </div>
+      <section class="console-panel data-pipeline" aria-labelledby="pipeline-title">
+        <div class="pipeline-title">
+          <p class="section-kicker">DATA PIPELINE</p>
+          <h2 id="pipeline-title">搭配資料流程</h2>
         </div>
-        <p class="database-count" id="database-count" aria-live="polite"></p>
-        <div id="database-output" class="database-grid"></div>
-      </section>
-
-      <section id="innovation" class="workspace-section innovation-section screen-section" data-screen="innovation" aria-labelledby="innovation-title">
-        <a class="back-home" href="#dashboard" data-screen-link="dashboard">返回儀表板</a><a class="back-home" href="./frontend.html">切換前端</a>
-        <div class="section-heading"><p class="section-kicker">後端管理｜新品研發</p><h2 id="innovation-title">依高頻情境與產品缺口，產出新品方向。</h2><p class="section-desc">把消費者需求轉為可執行的新品概念、搭配邏輯與測試重點。</p></div>
-        <div class="innovation-layout">
-          <div class="generator-panel">
-            <label for="innovation-context">選擇研發情境</label>
-            <select id="innovation-context"><option value="療癒">療癒</option><option value="提神">提神</option><option value="約會">約會</option><option value="低負擔">低負擔</option><option value="犒賞">犒賞</option></select>
-            <label for="innovation-gap">觀察到的產品缺口</label>
-            <select id="innovation-gap"><option value="低甜茶香">低甜茶香</option><option value="清爽乳香">清爽乳香</option><option value="酸甜提神">酸甜提神</option><option value="高儀式感甜點">高儀式感甜點</option></select>
-            <button class="run-button" type="button" id="generate-idea">產生新品研發建議</button>
-          </div>
-          <article class="idea-panel" aria-live="polite"><p class="muted-label">建議方向</p><h3 id="idea-title">新品概念</h3><p id="idea-summary">依據選擇產生研發建議。</p><ul id="idea-points"></ul></article>
-        </div>
+        <ol>
+          <li><span>01</span><b>使用者輸入</b><small>心情或需求描述</small></li>
+          <li><span>02</span><b>語意解析</b><small>AI 理解語句意圖</small></li>
+          <li><span>03</span><b>情境標籤</b><small>轉換情境與需求</small></li>
+          <li><span>04</span><b>風味轉換</b><small>建立風味參數向量</small></li>
+          <li><span>05</span><b>資料庫比對</b><small>飲品與餐食匹配</small></li>
+          <li><span>06</span><b>推薦生成</b><small>計算最佳搭配</small></li>
+          <li><span>07</span><b>使用者回饋</b><small>喜好與購買意願</small></li>
+          <li><span>08</span><b>持續優化</b><small>趨勢與新品洞察</small></li>
+        </ol>
       </section>
     </main>
-    <footer class="site-footer"><strong>Smart Feast 後端</strong><span>營運洞察 → 資料管理 → 新品研發</span></footer>
+
+    <footer class="site-footer"><strong>Smart Feast AI 決策後台</strong><span>多維風味標籤 × 科學搭配邏輯 × 資料驅動推薦</span></footer>
     <script src="./admin-auth.js"></script>
     <script src="./app.js"></script>
   </body>

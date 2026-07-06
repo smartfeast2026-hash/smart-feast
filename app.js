@@ -299,10 +299,19 @@ function renderBars(rows) {
 function renderRanking() {
   const ranking = document.querySelector("#pairing-ranking");
   if (!ranking) return;
+  const adminLayout = document.body.classList.contains("admin-console");
   ranking.innerHTML = [...pairings]
     .sort((a, b) => b.rank - a.rank)
     .slice(0, 5)
-    .map((item) => `<li><strong>${item.drink} × ${item.food}</strong><small>${item.note}</small><br><span>${item.context}</span></li>`)
+    .map((item) => adminLayout
+      ? `<li>
+          <div class="pairing-score"><strong>${item.context}推薦組合</strong><em>${item.rank}%</em></div>
+          <div class="pairing-visual"><span>☕</span><b>＋</b><span>${item.tags.includes("餐食") ? "🥪" : "🍰"}</span></div>
+          <strong>${item.drink} × ${item.food}</strong>
+          <small>${item.note}</small>
+          <span>${item.tags.join(" · ")}</span>
+        </li>`
+      : `<li><strong>${item.drink} × ${item.food}</strong><small>${item.note}</small><br><span>${item.context}</span></li>`)
     .join("");
 }
 
@@ -337,8 +346,9 @@ function renderDatabase() {
     return haystack.includes(query);
   });
 
+  const symbols = { flavor: "◉", lexicon: "⌁", pairings: "☕＋🍰" };
   databaseOutput.innerHTML = filtered.length
-    ? filtered.map((item) => `<article class="database-card"><h3>${item.title}</h3><p>${item.body}</p><div class="card-tags">${item.tags.map((tag) => `<span>${tag}</span>`).join("")}</div></article>`).join("")
+    ? filtered.map((item) => `<article class="database-card"><div class="card-symbol">${symbols[currentTab]}</div><h3>${item.title}</h3><p>${item.body}</p><div class="card-tags">${item.tags.map((tag) => `<span>${tag}</span>`).join("")}</div></article>`).join("")
     : `<article class="database-card"><h3>查無資料</h3><p>請嘗試搜尋其他情境、風味或品項名稱。</p></article>`;
   const count = document.querySelector("#database-count");
   if (count) {
