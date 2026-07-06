@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart Feast｜前端情境推薦</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="standalone-page" data-default-screen="frontdesk">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="返回 Smart Feast 首頁">
+        <span class="brand-mark">SF</span><span>Smart Feast</span>
+      </a>
+      <nav class="page-switch" aria-label="前後端頁面切換">
+        <a href="./frontend.html" aria-current="page">前端網頁</a>
+        <a href="./backend.html">後端網頁</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="frontdesk" class="workspace-section screen-section" data-screen="frontdesk" aria-labelledby="frontdesk-title">
+        <a class="back-home" href="./index.html">返回首頁</a>
+        <a class="back-home" href="./backend.html">切換後端</a>
+        <div class="section-heading">
+          <p class="section-kicker">消費者前端</p>
+          <h2 id="frontdesk-title">輸入情境，取得可調整的飲品 × 甜點／餐食推薦。</h2>
+          <p class="section-desc">輸入任意心情，或點選常見情境，系統會即時更新推薦、標籤與風味參數。</p>
+        </div>
+        <div class="frontdesk-layout">
+          <div class="input-panel">
+            <label for="mood-input">今天的情境或心情</label>
+            <textarea id="mood-input" rows="5">今天壓力很大，想喝點療癒但不要太甜的。</textarea>
+            <div class="quick-prompts" aria-label="快速情境">
+              <button type="button" data-prompt="今天很累，想喝點療癒的。">療癒</button>
+              <button type="button" data-prompt="下午需要提神，但不想太厚重。">提神</button>
+              <button type="button" data-prompt="明天要約會，想找有氣氛的甜點飲料。">約會</button>
+              <button type="button" data-prompt="想犒賞自己，想要有儀式感的搭配。">犒賞</button>
+              <button type="button" data-prompt="今天想吃低負擔、清爽一點的組合。">低負擔</button>
+            </div>
+            <button class="run-button" type="button" id="analyze-button">AI 風味轉譯與推薦</button>
+          </div>
+          <div class="analysis-panel" id="analysis-panel" aria-live="polite">
+            <div class="analysis-loading" id="analysis-loading" hidden>
+              <span class="loading-orbit" aria-hidden="true"></span>
+              <div>
+                <strong>AI 正在理解你的情境</strong>
+                <p id="analysis-stage">解析語意與情境標籤…</p>
+              </div>
+            </div>
+            <div class="analysis-header">
+              <div><p class="muted-label">AI 解析結果</p><h3 id="recommendation-title">療癒情境搭配</h3></div>
+              <span id="confidence-pill" class="confidence-pill">匹配度 92%</span>
+            </div>
+            <div id="tag-output" class="tag-output"></div>
+            <div class="recommendation-grid">
+              <article class="recommendation-item"><p>飲品</p><h4 id="drink-name">桂花烏龍拿鐵</h4><span id="drink-note">茶香柔和、奶香中等。</span></article>
+              <article class="recommendation-item"><p>甜點／餐食</p><h4 id="food-name">蜂蜜檸檬磅蛋糕</h4><span id="food-note">酸甜收尾，降低厚重感。</span></article>
+            </div>
+            <div class="signature-layout">
+              <div class="flavor-wheel-visual" id="flavor-wheel-visual" aria-label="風味輪視覺化"><div class="wheel-core"><strong>Flavor</strong><span>Wheel</span></div></div>
+              <p class="signature-copy">風味輪會依推薦結果同步更新，把抽象情境轉成可讀的味覺參數。</p>
+            </div>
+            <div class="flavor-meter" aria-label="風味參數">
+              <div><span>甜度</span><meter id="sweet-meter" min="0" max="100" value="46"></meter></div>
+              <div><span>酸度</span><meter id="acid-meter" min="0" max="100" value="38"></meter></div>
+              <div><span>濃郁</span><meter id="rich-meter" min="0" max="100" value="52"></meter></div>
+              <div><span>清爽</span><meter id="fresh-meter" min="0" max="100" value="64"></meter></div>
+              <div><span>茶香</span><meter id="tea-meter" min="0" max="100" value="76"></meter></div>
+            </div>
+            <p id="recommendation-reason" class="reason-text">系統會依輸入內容說明推薦原因。</p>
+            <div class="feedback-row" aria-label="使用者回饋">
+              <button type="button" data-feedback="like">喜歡</button><button type="button" data-feedback="dislike">不喜歡</button>
+              <button type="button" data-feedback="less-sweet">太甜</button><button type="button" data-feedback="less-rich">太濃</button>
+              <button type="button" data-feedback="lighter">想更清爽</button><button type="button" data-feedback="buy">願意購買</button>
+            </div>
+            <p class="feedback-status" id="feedback-status" role="status">回饋會匿名同步至業者後台，協助改善推薦與新品研發。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><strong>Smart Feast 前端</strong><span>情境輸入 → 風味轉譯 → 餐飲推薦</span></footer>
+    <script src="./app.js"></script>
+  </body>
+</html>
