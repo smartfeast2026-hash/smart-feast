@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart Feast｜管理員登入</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="login-page" data-admin-login>
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="返回 Smart Feast 首頁">
+        <span class="brand-mark">SF</span>
+        <span>Smart Feast</span>
+      </a>
+      <nav aria-label="登入頁導覽">
+        <a href="./index.html">返回首頁</a>
+        <a href="./frontend.html">前端網頁</a>
+      </nav>
+    </header>
+
+    <main class="login-main">
+      <section class="login-card" aria-labelledby="login-title">
+        <div class="login-lock" aria-hidden="true">●</div>
+        <p class="section-kicker">ADMIN PORTAL</p>
+        <h1 id="login-title">管理員登入</h1>
+        <p>後端儀表板包含消費者回饋、需求趨勢與新品研發資料，僅供展示管理員查看。</p>
+
+        <form class="login-form" id="admin-login-form">
+          <label for="admin-username">管理員帳號</label>
+          <input id="admin-username" name="username" type="text" autocomplete="username" required />
+
+          <label for="admin-password">管理員密碼</label>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" required />
+
+          <p class="login-error" id="login-error" role="alert"></p>
+          <button class="run-button" type="submit">登入管理後台</button>
+        </form>
+
+        <p class="login-note">此為競賽原型的展示用前端門禁，不等同正式伺服器身分驗證。</p>
+      </section>
+    </main>
+
+    <script src="./admin-auth.js"></script>
+  </body>
+</html>
