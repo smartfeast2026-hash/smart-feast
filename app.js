@@ -184,6 +184,17 @@ const databaseSearch = document.querySelector("#database-search");
 
 function detectContext(text) {
   const normalized = text.trim();
+  const priorityRules = [
+    { context: "約會", pattern: /約會|聚會|分享|朋友|拍照|漂亮|浪漫|社交|見面|聊天|告白|紀念日/ },
+    { context: "犒賞", pattern: /犒賞|獎勵|甜點|下午茶|午後甜點|儀式感|想吃好的|慶祝|完成任務|週末|開心/ },
+    { context: "提神", pattern: /提神|上班|醒腦|精神|開會|熬夜|沒睡飽|疲倦|工作提神/ },
+    { context: "專注", pattern: /專注|讀書|趕報告|考試|加班|寫作業|動腦|效率/ },
+    { context: "低負擔", pattern: /低負擔|無負擔|清爽|野餐|戶外|少糖|低甜|不要太甜|不膩|低油|健康|輕食|方便攜帶/ },
+    { context: "療癒", pattern: /療癒|放鬆|壓力|累|安慰|休息|溫暖|心情不好/ }
+  ];
+  const directMatch = priorityRules.find((rule) => rule.pattern.test(normalized));
+  if (directMatch) return directMatch.context;
+
   const scored = lexicon.map((item) => {
     const score = item.keywords.reduce((total, keyword) => total + (normalized.includes(keyword) ? 1 : 0), 0);
     return { ...item, score };
@@ -279,12 +290,20 @@ function setAnalysisLoading(isLoading) {
   if (panel) panel.setAttribute("aria-busy", String(isLoading));
   if (analyzeButton) {
     analyzeButton.disabled = isLoading;
-    analyzeButton.textContent = isLoading ? "AI 分析中…" : "AI 風味轉譯與推薦";
+    if (analyzeButton.classList.contains("front-cta")) {
+      analyzeButton.innerHTML = isLoading ? "AI 分析中…" : `開始推薦 <span aria-hidden="true">&rarr;</span>`;
+    } else {
+      analyzeButton.textContent = isLoading ? "AI 分析中…" : "AI 風味轉譯與推薦";
+    }
   }
 }
 
 async function runAnalysis() {
   if (!moodInput) return;
+  await analyzeContext(detectContext(moodInput.value));
+}
+
+async function analyzeContext(context) {
   setAnalysisLoading(true);
   const stages = ["解析語意與情境標籤…", "轉換風味輪參數…", "計算最佳餐飲搭配…"];
   const stage = document.querySelector("#analysis-stage");
@@ -292,7 +311,6 @@ async function runAnalysis() {
     if (stage) stage.textContent = message;
     await new Promise((resolve) => setTimeout(resolve, 260));
   }
-  const context = detectContext(moodInput.value);
   renderRecommendation(pickPairing(context));
   interactions += 1;
   appState.interactions = interactions;
@@ -456,7 +474,7 @@ function syncScreenFromHash() {
 document.querySelectorAll("[data-prompt]").forEach((button) => {
   button.addEventListener("click", () => {
     moodInput.value = button.dataset.prompt;
-    runAnalysis();
+    analyzeContext(button.dataset.context || detectContext(button.dataset.prompt || ""));
   });
 });
 

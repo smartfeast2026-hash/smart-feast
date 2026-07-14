@@ -2464,10 +2464,10 @@ nav a.is-active {
   min-height: 100vh;
   color: var(--front-brown);
   background:
-    linear-gradient(180deg, rgba(255, 250, 239, 0.36), rgba(255, 250, 239, 0.84)),
-    url("./fig/IMG_2547.jpg") center bottom / min(1280px, 155vw) auto no-repeat fixed,
-    radial-gradient(circle at 72% 34%, rgba(178, 226, 250, 0.55), transparent 22%),
-    radial-gradient(circle at 18% 18%, rgba(255, 195, 119, 0.42), transparent 28%),
+    radial-gradient(circle at 74% 20%, rgba(143, 220, 252, 0.5), transparent 23%),
+    radial-gradient(circle at 12% 84%, rgba(125, 170, 102, 0.24), transparent 18%),
+    radial-gradient(circle at 18% 18%, rgba(255, 195, 119, 0.45), transparent 28%),
+    radial-gradient(circle at 54% 98%, rgba(241, 166, 83, 0.28), transparent 28%),
     linear-gradient(180deg, #fff5e6 0%, #fffaf0 54%, #f5e1c7 100%);
 }
 
@@ -2477,8 +2477,13 @@ nav a.is-active {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.54), transparent 34%),
-    radial-gradient(circle at 84% 70%, rgba(150, 220, 246, 0.28), transparent 24%);
+    radial-gradient(circle at 74% 13%, rgba(255,255,255,0.9) 0 24px, transparent 26px),
+    radial-gradient(circle at 88% 18%, rgba(255,255,255,0.82) 0 20px, transparent 22px),
+    radial-gradient(circle at 9% 42%, rgba(255,255,255,0.78) 0 24px, transparent 26px),
+    radial-gradient(circle at 87% 39%, rgba(255,255,255,0.62) 0 30px, transparent 32px),
+    linear-gradient(120deg, transparent 0 66%, rgba(104, 202, 239, 0.3) 66.1% 66.35%, transparent 66.55%),
+    linear-gradient(34deg, transparent 0 58%, rgba(104, 202, 239, 0.24) 58.1% 58.35%, transparent 58.55%),
+    linear-gradient(162deg, transparent 0 74%, rgba(255, 184, 100, 0.24) 74.1% 74.4%, transparent 74.6%);
 }
 
 .front-home::after {
@@ -2491,7 +2496,9 @@ nav a.is-active {
     radial-gradient(circle at 10% 48%, rgba(255,255,255,0.88) 0 22px, transparent 24px),
     radial-gradient(circle at 88% 42%, rgba(255,255,255,0.82) 0 20px, transparent 22px),
     radial-gradient(circle at 76% 74%, rgba(154, 218, 244, 0.72) 0 4px, transparent 6px),
+    radial-gradient(circle at 83% 61%, rgba(154, 218, 244, 0.72) 0 5px, transparent 7px),
     radial-gradient(circle at 16% 76%, rgba(154, 218, 244, 0.6) 0 5px, transparent 7px),
+    radial-gradient(circle at 66% 8%, rgba(255, 183, 92, 0.46) 0 4px, transparent 6px),
     linear-gradient(115deg, transparent 0 58%, rgba(111, 202, 235, 0.2) 58.2% 58.6%, transparent 59%),
     linear-gradient(24deg, transparent 0 63%, rgba(255, 184, 100, 0.24) 63.2% 63.5%, transparent 64%);
 }
@@ -2864,11 +2871,27 @@ body.screen-mode.front-home .screen-section {
   --front-brown: #4d3527;
   color: var(--front-brown);
   background:
-    linear-gradient(180deg, rgba(255, 250, 239, 0.5), rgba(255, 250, 239, 0.9)),
-    url("./fig/IMG_2547.jpg") center bottom / min(1280px, 155vw) auto no-repeat fixed,
-    radial-gradient(circle at 72% 34%, rgba(178, 226, 250, 0.5), transparent 24%),
+    radial-gradient(circle at 76% 18%, rgba(143, 220, 252, 0.46), transparent 24%),
+    radial-gradient(circle at 14% 82%, rgba(125, 170, 102, 0.22), transparent 18%),
     radial-gradient(circle at 18% 18%, rgba(255, 195, 119, 0.42), transparent 28%),
+    radial-gradient(circle at 52% 96%, rgba(241, 166, 83, 0.24), transparent 30%),
     linear-gradient(180deg, #fff5e6 0%, #fffaf0 54%, #f5e1c7 100%);
+}
+
+.login-page::before,
+.admin-console::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 74% 13%, rgba(255,255,255,0.82) 0 24px, transparent 26px),
+    radial-gradient(circle at 9% 42%, rgba(255,255,255,0.74) 0 24px, transparent 26px),
+    radial-gradient(circle at 84% 61%, rgba(154, 218, 244, 0.72) 0 5px, transparent 7px),
+    radial-gradient(circle at 18% 76%, rgba(154, 218, 244, 0.55) 0 5px, transparent 7px),
+    linear-gradient(120deg, transparent 0 66%, rgba(104, 202, 239, 0.28) 66.1% 66.35%, transparent 66.55%),
+    linear-gradient(34deg, transparent 0 58%, rgba(104, 202, 239, 0.22) 58.1% 58.35%, transparent 58.55%);
 }
 
 .login-page .site-header,
