@@ -230,21 +230,8 @@ function ensureRecommendationImages() {
     recommendationGrid.insertAdjacentElement("beforebegin", pairingFrame);
   }
 
-  const items = recommendationGrid.querySelectorAll(".recommendation-item");
-  items.forEach((item, index) => {
-    if (item.querySelector(".recommendation-photo")) return;
-    const image = document.createElement("img");
-    image.className = "recommendation-photo";
-    image.id = index === 0 ? "drink-image" : "food-image";
-    image.alt = "";
-    image.loading = "lazy";
-    item.insertAdjacentElement("afterbegin", image);
-  });
-
   return {
-    pairingImage: document.querySelector("#pairing-image"),
-    drinkImage: document.querySelector("#drink-image"),
-    foodImage: document.querySelector("#food-image")
+    pairingImage: document.querySelector("#pairing-image")
   };
 }
 
@@ -302,14 +289,6 @@ function renderRecommendation(pairing) {
   if (images.pairingImage) {
     images.pairingImage.src = media.image;
     images.pairingImage.alt = `${pairing.drink} 與 ${pairing.food} 的推薦搭配圖片`;
-  }
-  if (images.drinkImage) {
-    images.drinkImage.src = media.accent || media.image;
-    images.drinkImage.alt = `${pairing.drink} 飲品圖片`;
-  }
-  if (images.foodImage) {
-    images.foodImage.src = media.image;
-    images.foodImage.alt = `${pairing.food} 食物圖片`;
   }
   renderTags(pairing.tags);
   setMeters(pairing.scores);
