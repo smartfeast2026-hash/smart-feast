@@ -76,12 +76,12 @@ const pairings = [
 ];
 
 const pairingMediaByContext = {
-  "療癒": { image: "./fig/IMG_2553.jpg", label: "安靜獨處系推薦" },
-  "提神": { image: "./fig/IMG_2547.jpg", label: "清爽恢復系推薦" },
-  "約會": { image: "./fig/IMG_2548.jpg", label: "精緻花果系推薦" },
-  "低負擔": { image: "./fig/IMG_2547.jpg", label: "清爽低負擔推薦" },
-  "犒賞": { image: "./fig/IMG_2549.jpg", label: "濃厚犒賞系推薦" },
-  "專注": { image: "./fig/IMG_2551.jpg", label: "專注療癒系推薦" }
+  "療癒": { image: "./fig/healing-alone-matcha-tiramisu.jpg", label: "療癒安靜獨處推薦" },
+  "提神": { image: "./fig/fresh-recovery-white-tea-lemon-tart.jpg", label: "清爽恢復提神推薦" },
+  "約會": { image: "./fig/date-floral-oolong-peach-tart-macaron.jpg", label: "精緻花果約會推薦" },
+  "低負擔": { image: "./fig/fresh-recovery-white-tea-lemon-tart.jpg", label: "清爽低負擔推薦" },
+  "犒賞": { image: "./fig/rich-roasted-oolong-chocolate-tart.jpg", label: "濃厚犒賞推薦" },
+  "專注": { image: "./fig/healing-me-time-matcha-tea-dessert.jpg", label: "專注安靜獨處推薦" }
 };
 
 const dashboardSets = {
