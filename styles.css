@@ -2854,3 +2854,210 @@ body.screen-mode.front-home .screen-section {
     width: 100%;
   }
 }
+
+/* Warm Smart Feast visual system for admin login and backend */
+.login-page,
+.admin-console {
+  --front-orange: #ff7a2f;
+  --front-orange-dark: #d85f22;
+  --front-green: #55784a;
+  --front-brown: #4d3527;
+  color: var(--front-brown);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 239, 0.5), rgba(255, 250, 239, 0.9)),
+    url("./fig/IMG_2547.jpg") center bottom / min(1280px, 155vw) auto no-repeat fixed,
+    radial-gradient(circle at 72% 34%, rgba(178, 226, 250, 0.5), transparent 24%),
+    radial-gradient(circle at 18% 18%, rgba(255, 195, 119, 0.42), transparent 28%),
+    linear-gradient(180deg, #fff5e6 0%, #fffaf0 54%, #f5e1c7 100%);
+}
+
+.login-page .site-header,
+.admin-console .site-header {
+  border-bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 246, 230, 0.95), rgba(255, 246, 230, 0.72));
+  box-shadow: 0 10px 32px rgba(104, 71, 42, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.login-page .brand,
+.admin-console .brand,
+.login-page nav a,
+.admin-console nav a {
+  color: var(--front-brown);
+}
+
+.login-page .brand-mark,
+.admin-console .brand-mark {
+  width: 48px;
+  height: 48px;
+  font-size: 0;
+  background: linear-gradient(145deg, #ff9253, #f8c16d);
+  box-shadow: 0 10px 24px rgba(216, 95, 34, 0.2);
+}
+
+.login-page .brand-mark::after,
+.admin-console .brand-mark::after {
+  content: "SF";
+  color: #fff;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.admin-console nav a,
+.admin-console .nav-logout,
+.login-page nav a {
+  border: 1px solid rgba(255, 122, 47, 0.22);
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--front-brown);
+}
+
+.admin-console nav a:hover,
+.admin-console .nav-logout:hover,
+.login-page nav a:hover {
+  background: rgba(255, 122, 47, 0.13);
+  color: var(--front-orange-dark);
+}
+
+.admin-workbench {
+  color: var(--front-brown);
+}
+
+.admin-titlebar {
+  padding: 20px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 22px 54px rgba(87, 61, 39, 0.13);
+  backdrop-filter: blur(18px);
+}
+
+.admin-titlebar h1 {
+  color: var(--front-brown);
+  text-shadow: 0 7px 22px rgba(108, 75, 39, 0.1);
+}
+
+.admin-console .section-kicker {
+  color: var(--front-green);
+}
+
+.admin-live {
+  border-color: rgba(255, 122, 47, 0.24);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--front-green);
+}
+
+.console-panel,
+.logic-card,
+.data-pipeline,
+.login-card {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 250, 239, 0.8));
+  box-shadow: 0 18px 42px rgba(87, 61, 39, 0.12);
+  backdrop-filter: blur(16px);
+}
+
+.console-panel,
+.logic-card {
+  border-radius: 24px;
+}
+
+.database-console,
+.recommendation-console,
+.innovation-console {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 235, 0.84));
+}
+
+.console-icon.pink,
+.pairing-cards li::before {
+  background: linear-gradient(135deg, #ff8a35, #ff632e);
+  color: #fff;
+}
+
+.console-icon.green,
+.logic-card > span,
+.admin-live span {
+  background: var(--front-green);
+  color: #fff;
+}
+
+.console-icon.orange,
+.orange-card > span {
+  background: #ffad4d;
+  color: #fff;
+}
+
+.console-icon.purple,
+.purple-card > span {
+  background: #b38bd1;
+  color: #fff;
+}
+
+.mock-message,
+.recommend-filter,
+.analysis-values div,
+.pairing-cards li,
+.card-symbol,
+.admin-database-grid .database-card,
+.workspace-title input,
+.admin-tabs button,
+.innovation-controls select {
+  border-color: rgba(154, 111, 77, 0.2);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.context-shortcuts span,
+.analysis-chip-row span,
+.tag-output span,
+.database-card span,
+.ranking-list span {
+  border-radius: 999px;
+  background: rgba(255, 122, 47, 0.11);
+  color: var(--front-orange-dark);
+}
+
+.context-shortcuts span:nth-child(2) {
+  background: rgba(255, 180, 78, 0.16);
+  color: #c97916;
+}
+
+.context-shortcuts span:nth-child(3) {
+  background: rgba(179, 139, 209, 0.16);
+  color: #8256a6;
+}
+
+.context-shortcuts span:nth-child(4) {
+  background: rgba(85, 120, 74, 0.14);
+  color: var(--front-green);
+}
+
+.run-button,
+.innovation-controls .run-button {
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff8a35, #ff632e);
+  color: #fff;
+  box-shadow: 0 14px 22px rgba(255, 105, 43, 0.28);
+}
+
+.idea-result {
+  background: linear-gradient(145deg, #5c3b2b, #2f241e);
+}
+
+.login-main {
+  padding-top: 112px;
+}
+
+.login-card {
+  border-radius: 32px;
+}
+
+.login-lock {
+  background: linear-gradient(145deg, #ff9253, #f8c16d);
+  color: #fff;
+}
+
+.login-form input {
+  border-color: rgba(154, 111, 77, 0.22);
+  background: rgba(255, 255, 255, 0.82);
+}

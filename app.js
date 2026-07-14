@@ -75,32 +75,14 @@ const pairings = [
   }
 ];
 
-const pairingMedia = [
-  {
-    image: "./fig/IMG_2553.jpg",
-    accent: "./fig/IMG_2552.jpg"
-  },
-  {
-    image: "./fig/IMG_2547.jpg",
-    accent: "./fig/IMG_2547.jpg"
-  },
-  {
-    image: "./fig/IMG_2548.jpg",
-    accent: "./fig/IMG_2548.jpg"
-  },
-  {
-    image: "./fig/IMG_2547.jpg",
-    accent: "./fig/IMG_2547.jpg"
-  },
-  {
-    image: "./fig/IMG_2549.jpg",
-    accent: "./fig/IMG_2550.jpg"
-  },
-  {
-    image: "./fig/IMG_2551.jpg",
-    accent: "./fig/IMG_2552.jpg"
-  }
-];
+const pairingMediaByContext = {
+  "療癒": { image: "./fig/IMG_2553.jpg", label: "安靜獨處系推薦" },
+  "提神": { image: "./fig/IMG_2547.jpg", label: "清爽恢復系推薦" },
+  "約會": { image: "./fig/IMG_2548.jpg", label: "精緻花果系推薦" },
+  "低負擔": { image: "./fig/IMG_2547.jpg", label: "清爽低負擔推薦" },
+  "犒賞": { image: "./fig/IMG_2549.jpg", label: "濃厚犒賞系推薦" },
+  "專注": { image: "./fig/IMG_2551.jpg", label: "專注療癒系推薦" }
+};
 
 const dashboardSets = {
   today: [
@@ -226,26 +208,18 @@ function ensureRecommendationImages() {
     pairingFrame = document.createElement("figure");
     pairingFrame.id = "pairing-image-frame";
     pairingFrame.className = "pairing-image-frame";
-    pairingFrame.innerHTML = `<img id="pairing-image" src="" alt="" loading="lazy"><figcaption>依據食物與情境自動切換搭配圖片</figcaption>`;
+    pairingFrame.innerHTML = `<img id="pairing-image" src="" alt="" loading="lazy"><figcaption id="pairing-image-caption">依據食物與情境自動切換搭配圖片</figcaption>`;
     recommendationGrid.insertAdjacentElement("beforebegin", pairingFrame);
   }
 
   return {
-    pairingImage: document.querySelector("#pairing-image")
+    pairingImage: document.querySelector("#pairing-image"),
+    pairingCaption: document.querySelector("#pairing-image-caption")
   };
 }
 
 function resolvePairingMedia(pairing) {
-  const source = [pairing.context, pairing.drink, pairing.food, ...pairing.tags].join(" ");
-  const keywordMedia = [
-    { pattern: /rose|berry|raspberry|date|social|romance|約會|玫瑰|莓|覆盆子|白桃|馬卡龍/i, media: { image: "./fig/IMG_2548.jpg", accent: "./fig/IMG_2548.jpg" } },
-    { pattern: /choco|cocoa|brownie|reward|caramel|hazelnut|犒賞|可可|巧克力|布朗尼|焦糖|榛果|濃厚/i, media: { image: "./fig/IMG_2549.jpg", accent: "./fig/IMG_2550.jpg" } },
-    { pattern: /matcha|focus|jasmine|salad|專注|抹茶|茉莉|沙拉|無糖/i, media: { image: "./fig/IMG_2551.jpg", accent: "./fig/IMG_2552.jpg" } },
-    { pattern: /lemon|citrus|fresh|light|sparkling|tomato|focaccia|清爽|低負擔|檸檬|柚|氣泡|番茄|佛卡夏/i, media: { image: "./fig/IMG_2547.jpg", accent: "./fig/IMG_2547.jpg" } },
-    { pattern: /oolong|cheese|cake|latte|healing|療癒|烏龍|起司|蛋糕|拿鐵|桂花/i, media: { image: "./fig/IMG_2553.jpg", accent: "./fig/IMG_2552.jpg" } }
-  ];
-  const matched = keywordMedia.find((item) => item.pattern.test(source));
-  return matched?.media || pairingMedia[pairings.indexOf(pairing)] || pairingMedia[0];
+  return pairingMediaByContext[pairing.context] || pairingMediaByContext["療癒"];
 }
 
 function setMeters(scores) {
@@ -289,6 +263,9 @@ function renderRecommendation(pairing) {
   if (images.pairingImage) {
     images.pairingImage.src = media.image;
     images.pairingImage.alt = `${pairing.drink} 與 ${pairing.food} 的推薦搭配圖片`;
+  }
+  if (images.pairingCaption) {
+    images.pairingCaption.textContent = `${media.label}｜${pairing.drink} × ${pairing.food}`;
   }
   renderTags(pairing.tags);
   setMeters(pairing.scores);
