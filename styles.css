@@ -2505,7 +2505,7 @@ nav a.is-active {
 
 body.screen-mode.front-home .front-hero {
   min-height: calc(100svh - 76px);
-  padding: 156px 0 70px;
+  padding: 188px 0 70px !important;
 }
 
 .front-home-header {
@@ -2562,7 +2562,7 @@ body.screen-mode.front-home .front-hero {
   width: min(980px, calc(100% - 28px));
   min-height: calc(100vh - 76px);
   margin: 0 auto;
-  padding: 156px 0 70px;
+  padding: 188px 0 70px;
   text-align: center;
 }
 
@@ -2831,7 +2831,7 @@ body.screen-mode.front-home .front-hero {
   }
 
   body.screen-mode.front-home .front-hero {
-    padding: 112px 0 64px;
+    padding: 128px 0 64px !important;
   }
 
   .front-subtitle {
