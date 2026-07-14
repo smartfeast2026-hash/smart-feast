@@ -1,6 +1,6 @@
 const adminSessionKey = "smartFeastAdminSession";
 const adminUsername = "admin";
-const adminPasswordHash = "05193d28eec0d32bfe9fcf4dd26334dd63289f8846516c5be2637d96bf5611da";
+const adminPasswordHash = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3";
 
 async function hashValue(value) {
   const bytes = new TextEncoder().encode(value);
