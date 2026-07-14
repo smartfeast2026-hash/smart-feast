@@ -2511,9 +2511,9 @@ body.screen-mode.front-home .screen-section {
 .front-home-header {
   height: 82px;
   border-bottom: 0;
-  background: linear-gradient(180deg, rgba(255, 246, 230, 0.94), rgba(255, 246, 230, 0.58));
-  box-shadow: none;
-  backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, rgba(255, 246, 230, 0.98), rgba(255, 246, 230, 0.86));
+  box-shadow: 0 8px 24px rgba(104, 71, 42, 0.06);
+  backdrop-filter: blur(8px);
 }
 
 .front-home-header .brand {
@@ -2562,7 +2562,7 @@ body.screen-mode.front-home .screen-section {
   width: min(980px, calc(100% - 28px));
   min-height: calc(100vh - 76px);
   margin: 0 auto;
-  padding: 118px 0 70px;
+  padding: 156px 0 70px;
   text-align: center;
 }
 
@@ -2827,7 +2827,7 @@ body.screen-mode.front-home .screen-section {
 
   .front-hero {
     width: min(100% - 20px, 680px);
-    padding-top: 78px;
+    padding-top: 112px;
   }
 
   .front-subtitle {
