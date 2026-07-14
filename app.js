@@ -75,6 +75,33 @@ const pairings = [
   }
 ];
 
+const pairingMedia = [
+  {
+    image: "./fig/IMG_2553.jpg",
+    accent: "./fig/IMG_2552.jpg"
+  },
+  {
+    image: "./fig/IMG_2547.jpg",
+    accent: "./fig/IMG_2547.jpg"
+  },
+  {
+    image: "./fig/IMG_2548.jpg",
+    accent: "./fig/IMG_2548.jpg"
+  },
+  {
+    image: "./fig/IMG_2547.jpg",
+    accent: "./fig/IMG_2547.jpg"
+  },
+  {
+    image: "./fig/IMG_2549.jpg",
+    accent: "./fig/IMG_2550.jpg"
+  },
+  {
+    image: "./fig/IMG_2551.jpg",
+    accent: "./fig/IMG_2552.jpg"
+  }
+];
+
 const dashboardSets = {
   today: [
     ["療癒", 34],
@@ -169,6 +196,7 @@ const drinkNote = document.querySelector("#drink-note");
 const foodName = document.querySelector("#food-name");
 const foodNote = document.querySelector("#food-note");
 const recommendationReason = document.querySelector("#recommendation-reason");
+const recommendationGrid = document.querySelector(".recommendation-grid");
 const databaseOutput = document.querySelector("#database-output");
 const databaseSearch = document.querySelector("#database-search");
 
@@ -189,6 +217,48 @@ function pickPairing(context) {
 function renderTags(tags) {
   if (!tagOutput) return;
   tagOutput.innerHTML = tags.map((tag) => `<span>${tag}</span>`).join("");
+}
+
+function ensureRecommendationImages() {
+  if (!recommendationGrid) return {};
+  let pairingFrame = document.querySelector("#pairing-image-frame");
+  if (!pairingFrame) {
+    pairingFrame = document.createElement("figure");
+    pairingFrame.id = "pairing-image-frame";
+    pairingFrame.className = "pairing-image-frame";
+    pairingFrame.innerHTML = `<img id="pairing-image" src="" alt="" loading="lazy"><figcaption>依據食物與情境自動切換搭配圖片</figcaption>`;
+    recommendationGrid.insertAdjacentElement("beforebegin", pairingFrame);
+  }
+
+  const items = recommendationGrid.querySelectorAll(".recommendation-item");
+  items.forEach((item, index) => {
+    if (item.querySelector(".recommendation-photo")) return;
+    const image = document.createElement("img");
+    image.className = "recommendation-photo";
+    image.id = index === 0 ? "drink-image" : "food-image";
+    image.alt = "";
+    image.loading = "lazy";
+    item.insertAdjacentElement("afterbegin", image);
+  });
+
+  return {
+    pairingImage: document.querySelector("#pairing-image"),
+    drinkImage: document.querySelector("#drink-image"),
+    foodImage: document.querySelector("#food-image")
+  };
+}
+
+function resolvePairingMedia(pairing) {
+  const source = [pairing.context, pairing.drink, pairing.food, ...pairing.tags].join(" ");
+  const keywordMedia = [
+    { pattern: /rose|berry|raspberry|date|social|romance|約會|玫瑰|莓|覆盆子|白桃|馬卡龍/i, media: { image: "./fig/IMG_2548.jpg", accent: "./fig/IMG_2548.jpg" } },
+    { pattern: /choco|cocoa|brownie|reward|caramel|hazelnut|犒賞|可可|巧克力|布朗尼|焦糖|榛果|濃厚/i, media: { image: "./fig/IMG_2549.jpg", accent: "./fig/IMG_2550.jpg" } },
+    { pattern: /matcha|focus|jasmine|salad|專注|抹茶|茉莉|沙拉|無糖/i, media: { image: "./fig/IMG_2551.jpg", accent: "./fig/IMG_2552.jpg" } },
+    { pattern: /lemon|citrus|fresh|light|sparkling|tomato|focaccia|清爽|低負擔|檸檬|柚|氣泡|番茄|佛卡夏/i, media: { image: "./fig/IMG_2547.jpg", accent: "./fig/IMG_2547.jpg" } },
+    { pattern: /oolong|cheese|cake|latte|healing|療癒|烏龍|起司|蛋糕|拿鐵|桂花/i, media: { image: "./fig/IMG_2553.jpg", accent: "./fig/IMG_2552.jpg" } }
+  ];
+  const matched = keywordMedia.find((item) => item.pattern.test(source));
+  return matched?.media || pairingMedia[pairings.indexOf(pairing)] || pairingMedia[0];
 }
 
 function setMeters(scores) {
@@ -220,6 +290,8 @@ function setMeters(scores) {
 
 function renderRecommendation(pairing) {
   if (!recommendationTitle) return;
+  const media = resolvePairingMedia(pairing);
+  const images = ensureRecommendationImages();
   latestPairing = pairing;
   recommendationTitle.textContent = `${pairing.context}情境搭配`;
   confidencePill.textContent = `匹配度 ${pairing.rank}%`;
@@ -227,6 +299,18 @@ function renderRecommendation(pairing) {
   drinkNote.textContent = pairing.note;
   foodName.textContent = pairing.food;
   foodNote.textContent = pairing.tags.includes("餐食") ? "作為正餐輕食搭配，降低選擇負擔。" : "作為甜點搭配，補足情境記憶點。";
+  if (images.pairingImage) {
+    images.pairingImage.src = media.image;
+    images.pairingImage.alt = `${pairing.drink} 與 ${pairing.food} 的推薦搭配圖片`;
+  }
+  if (images.drinkImage) {
+    images.drinkImage.src = media.accent || media.image;
+    images.drinkImage.alt = `${pairing.drink} 飲品圖片`;
+  }
+  if (images.foodImage) {
+    images.foodImage.src = media.image;
+    images.foodImage.alt = `${pairing.food} 食物圖片`;
+  }
   renderTags(pairing.tags);
   setMeters(pairing.scores);
   recommendationReason.textContent = `系統判斷語句接近「${pairing.context}」情境，因此依據風味輪選擇 ${pairing.tags.join("、")} 的組合：${pairing.note}`;
